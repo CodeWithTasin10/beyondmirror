@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080808">
+
+    <title>Message Sent — Beyond Mirror</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #151515;
+            --text: #f5f5f5;
+            --muted: #999;
+            --red: #e50914;
+            --red-soft: rgba(229, 9, 20, .10);
+            --line: rgba(255, 255, 255, .10);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+
+            background:
+                radial-gradient(circle at 50% 35%,
+                    rgba(229, 9, 20, .12),
+                    transparent 34%),
+                #080808;
+
+            color: var(--text);
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background glow */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            background: radial-gradient(circle,
+                    rgba(229, 9, 20, .06),
+                    transparent 70%);
+
+            pointer-events: none;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 720px;
+
+            position: relative;
+            padding: 60px 40px;
+
+            text-align: center;
+
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(145deg,
+                    rgba(24, 24, 24, .96),
+                    rgba(10, 10, 10, .96));
+
+            box-shadow:
+                0 35px 100px rgba(0, 0, 0, .55);
+
+            overflow: hidden;
+        }
+
+        /* Decorative circles */
+        .page::before {
+            content: "";
+            position: absolute;
+
+            width: 320px;
+            height: 320px;
+
+            border: 1px solid rgba(229, 9, 20, .12);
+            border-radius: 50%;
+
+            top: -170px;
+            right: -100px;
+        }
+
+        .page::after {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 50%;
+
+            bottom: -130px;
+            left: -80px;
+        }
+
+        /* Brand */
+        .brand {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+
+            margin-bottom: 55px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: .14em;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid rgba(229, 9, 20, .55);
+            border-radius: 50%;
+
+            color: var(--red);
+            font-size: 15px;
+
+            transition: .3s ease;
+        }
+
+        .brand:hover .brand-mark {
+            background: var(--red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Success icon */
+        .check {
+            position: relative;
+            z-index: 2;
+
+            width: 68px;
+            height: 68px;
+
+            margin: 0 auto 28px;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid rgba(229, 9, 20, .55);
+            border-radius: 50%;
+
+            background: var(--red-soft);
+            color: var(--red);
+
+            font-size: 28px;
+            font-weight: 500;
+
+            box-shadow:
+                0 0 45px rgba(229, 9, 20, .10);
+        }
+
+        /* Small title */
+        .eyebrow {
+            position: relative;
+            z-index: 2;
+
+            color: var(--red);
+
+            font-size: 9px;
+            font-weight: 700;
+
+            letter-spacing: .25em;
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+        }
+
+        /* Main title */
+        h1 {
+            position: relative;
+            z-index: 2;
+
+            max-width: 600px;
+            margin: 0 auto 18px;
+
+            color: white;
+
+            font-size: clamp(38px, 6vw, 62px);
+            line-height: .95;
+
+            font-weight: 700;
+            letter-spacing: -.055em;
+        }
+
+        h1 span {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 400;
+            color: #aaa;
+        }
+
+        /* Description */
+        p {
+            position: relative;
+            z-index: 2;
+
+            max-width: 500px;
+            margin: 0 auto;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* Button */
+        .button {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-top: 35px;
+
+            padding: 14px 22px;
+
+            background: var(--red);
+            border: 1px solid var(--red);
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            letter-spacing: .15em;
+
+            transition: .3s ease;
+        }
+
+        .button:hover {
+            background: #f6121d;
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 35px rgba(229, 9, 20, .25);
+        }
+
+        .button span {
+            font-size: 15px;
+            line-height: 0;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 2;
+
+            margin-top: 50px;
+            padding-top: 22px;
+
+            border-top: 1px solid var(--line);
+
+            color: #555;
+
+            font-size: 8px;
+            letter-spacing: .20em;
+        }
+
+        /* Mobile */
+        @media (max-width: 520px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .page {
+                padding: 45px 23px;
+            }
+
+            .brand {
+                margin-bottom: 42px;
+            }
+
+            .check {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+
+            .footer {
+                font-size: 7px;
+                letter-spacing: .15em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <a class="brand" href="/">
+            <span class="brand-mark">↗</span>
+            BEYOND MIRROR
+        </a>
+
+        <div class="check">✓</div>
+
+        <div class="eyebrow">
+            Message Received
+        </div>
+
+        <h1>
+            Thanks for <span>reaching out.</span>
+        </h1>
+
+        <p>
+            Your message has been sent successfully.
+            We'll get back to you soon. Until then,
+            keep exploring beyond the mirror.
+        </p>
+
+        <a class="button" href="/">
+            BACK TO HOME
+            <span>↗</span>
+        </a>
+
+        <div class="footer">
+            THROUGH THE MIRROR, INTO WORLDS WE KNOW.
+        </div>
+
+    </main>
+
+</body>
+
+</html>
